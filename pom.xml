@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>com.washingtonpost</groupId>
-        <artifactId>wp-oss-parent-pom</artifactId>
-        <version>0.0.8</version>
+        <groupId>com.upside</groupId>
+        <artifactId>upside-parent-pom</artifactId>
+        <version>0.0.1</version>
     </parent>
     
     <groupId>com.washingtonpost.dropwizard</groupId>
