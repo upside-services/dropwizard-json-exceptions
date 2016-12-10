@@ -1,5 +1,9 @@
 # dropwizard-json-exceptions
 
+## 2.0.0 2016/12/xx
+
+* Upgraded dropwizard dependency to 1.0.5
+
 ## 1.1.0 2015/11/19
 
 * Added configurable MediaType return types for the 2 ExceptionMappers (they're still defaulting to JSON)
