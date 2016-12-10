@@ -47,7 +47,7 @@ public class RuntimeExceptionMapper implements ExceptionMapper<RuntimeException>
         // Build default response
         Response defaultResponse = Response.serverError()
                 .type(this.mediaType)
-                .entity(new ErrorMessage(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), 
+                .entity(new ErrorMessage(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),
                                          exception.getMessage(),
                                          this.showDetails ? stackTraceToString(exception) : null))
                 .build();
@@ -66,20 +66,12 @@ public class RuntimeExceptionMapper implements ExceptionMapper<RuntimeException>
         WebApplicationException webAppException = (WebApplicationException) exception;
 
         // No logging
-        if (webAppException.getResponse().getStatus() == 401) {
+        int status = webAppException.getResponse().getStatus();
+        if (status == 401 || status == 403 || status == 404) {
             return Response
-                    .status(Response.Status.UNAUTHORIZED)
+                    .status(Response.Status.fromStatusCode(status))
                     .type(this.mediaType)
-                    .entity(new ErrorMessage(Response.Status.UNAUTHORIZED.getStatusCode(), 
-                                             exception.getMessage(),
-                                             this.showDetails ? stackTraceToString(exception) : null))
-                    .build();
-        }
-        if (webAppException.getResponse().getStatus() == 404) {
-            return Response
-                    .status(Response.Status.NOT_FOUND)
-                    .type(this.mediaType)
-                    .entity(new ErrorMessage(Response.Status.NOT_FOUND.getStatusCode(), 
+                    .entity(new ErrorMessage(status,
                                              exception.getMessage(),
                                              this.showDetails ? stackTraceToString(exception) : null))
                     .build();
